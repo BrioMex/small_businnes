@@ -1,0 +1,39 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <center>
+        {% if booked %}
+
+            <h1>{{customer.email}} can cancel your reservation for {{event.name}} clicking: </h1> <br>
+
+            <form class="d-flex" method= POST action= {% url 'cancel-book' %}>
+                <label for="customer_id">Your ID:</label>
+                {% csrf_token %}
+                <input type="text" id="customer_id" name="customer_id" readonly value={{customer.id}}><br><br>
+                <label for="event_id">Event:</label>
+                {% csrf_token %}
+                <input type="text" id="event_id" name="event_id" readonly value={{event.id}}><br><br>
+                <input type="submit" value="Submit">
+            </form>
+
+            
+        {% else %}
+            <h1>{{customer.email}} can book a reservation for {{event.name}} clicking:</h1>
+
+            <form class="d-flex" method= POST action= {% url 'update-book' %}>
+                <label for="customer_id">Your ID:</label>
+                {% csrf_token %}
+                <input type="text" id="customer_id" name="customer_id" readonly value={{customer.id}}><br><br>
+                <label for="event_id">Event:</label>
+                {% csrf_token %}
+                <input type="text" id="event_id" name="event_id" readonly value={{event.id}}><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        
+        {% endif %}
+
+        
+    
+    </center>
+
+{% endblock content %}

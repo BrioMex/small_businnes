@@ -1,0 +1,67 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <center>
+        <h1>Events</h1>
+        <br>
+
+<style>
+    #Events {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #Events td, #Events th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      align="center"
+    }
+    
+    #Events tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #Events tr:hover {background-color: #ddd;}
+    
+    #Events th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #5F9EA0;
+      color: White;
+    }
+    </style>
+
+    <table id="Events">
+        <tr align="center">
+          <th >Event Name</th>
+          <th >Booking</th>
+
+        </tr>
+        {% for event in events_list %}
+        <tr>
+            <td><strong><a>{{event}}</a></strong></td>
+            
+            <td align="right">
+
+              <form class="d-flex" method= POST action= {% url 'show-book' %}>
+                <label for="email">Your Email:</label>
+                {% csrf_token %}
+                <input type="text" id="email" name="email"><br><br>
+                <label for="event_id">Event:</label>
+                {% csrf_token %}
+                <input type="text" id="event_id" name="event_id" readonly value={{event.id}}><br><br>
+                <input type="submit" value="Submit">
+              </form>
+                
+            </td>
+
+        </tr>
+        {% endfor %}
+      </table>
+
+
+
+
+    </center>
+
+{% endblock content %}
